@@ -20,8 +20,8 @@ export default class ProjectList extends React.Component {
     this.fetchData();
   }
   componentWillMount(){
-    this.setState({loading: true})
-    this.fetchData();
+    // this.setState({loading: true})
+    // this.fetchData();
   }
   fetchData(){
     axiosInstance.get('/projects.json')
@@ -37,13 +37,14 @@ export default class ProjectList extends React.Component {
       return <Spinner size='small' />
     }
     return (
-      <FlatList
-        onRefresh={() => this._onRefresh()}
-        refreshing={this.state.refreshing}
-        data={this.state.projects}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}>
-      </FlatList>
+      // <FlatList
+      //   onRefresh={() => this._onRefresh()}
+      //   refreshing={this.state.refreshing}
+      //   data={this.state.projects}
+      //   renderItem={this._renderItem}
+      //   keyExtractor={this._keyExtractor}>
+      // </FlatList>
+      <Text>Projects</Text>
     );
   }
 

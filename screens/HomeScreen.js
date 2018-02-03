@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
 import { TicketList } from '../components/TicketList';
 
 export default class HomeScreen extends React.Component {

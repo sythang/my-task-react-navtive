@@ -12,26 +12,26 @@ export default class App extends React.Component {
   };
 
   render() {
-    return (
-      <LoginScreen/>
-    )
-    // if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-    //   return (
-    //     <AppLoading
-    //       startAsync={this._loadResourcesAsync}
-    //       onError={this._handleLoadingError}
-    //       onFinish={this._handleFinishLoading}
-    //     />
-    //   );
-    // } else {
-    //   return (
-    //     <View style={styles.container}>
-    //       {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-    //       {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-    //       <RootNavigation />
-    //     </View>
-    //   );
-    // }
+    // return (
+      // <LoginScreen/>
+    // )
+    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+          <RootNavigation />
+        </View>
+      );
+    }
   }
 
   _loadResourcesAsync = async () => {
