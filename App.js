@@ -8,7 +8,7 @@ import {
   AsyncStorage,
   Navigator
 } from "react-native";
-// import { AppLoading, Asset, Font } from 'expo';
+import { AppLoading, Asset, Font } from 'expo';
 // import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 import LoginScreen from "./screens/LoginScreen.js";
@@ -27,13 +27,6 @@ const RootStack = StackNavigator(
   },
   {
     initialRouteName: "LoginScreen"
-  },
-  {
-    header: null,
-    headerMode: "none",
-    navigationOptions: {
-      header: null
-    }
   }
 );
 
