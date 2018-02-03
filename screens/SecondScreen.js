@@ -1,12 +1,28 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import {
+  Platform,
+  StatusBar,
+  ScrollView,
+  StyleSheet,
+  Text,
+  AsyncStorage,
+  View
+} from "react-native";
 import { AppLoading, Asset, Font } from "expo";
-
+import RootNavigation from "../navigation/RootNavigation";
+// import axiosInstance from "../api/api";
 
 export default class SecondScreen extends React.Component {
     state = {
-        isLoadingComplete: false,
+        isLoadingComplete: true,
     };
+    constructor(){
+        super()
+        // value = AsyncStorage.getItem("ACCESS_TOKEN");
+        // console.log('zxc');
+        // console.log(value);
+    }
+    
     render() {
         if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
             return <AppLoading startAsync={this._loadResourcesAsync} onError={this._handleLoadingError} onFinish={this._handleFinishLoading} />;
@@ -19,3 +35,14 @@ export default class SecondScreen extends React.Component {
         }
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  },
+  statusBarUnderlay: {
+    height: 24,
+    backgroundColor: "rgba(0,0,0,0.2)"
+  }
+});

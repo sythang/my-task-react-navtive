@@ -16,7 +16,7 @@ import axiosInstance from '../api/api';
 import base64 from 'base-64';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const ACCESS_TOKEN = "false";
+const ACCESS_TOKEN = "access_token";
 
 const dummySearchBarProps = {
   showLoading: true,
@@ -88,8 +88,10 @@ class LoginScreen extends Component {
         //Handle success
         let accessToken = "true";
         console.log(accessToken);
+        console.log("username");
+        console.log(username + ":" + password);
         //On success we will store the access_token in the AsyncStorage
-        this.storeToken(accessToken);
+        this.storeToken(username+':'+password);
         this.redirect("home");
       } else {
         //Handle error
