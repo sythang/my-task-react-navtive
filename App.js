@@ -3,7 +3,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
-import LoginScreen from './screens/LoginScreen.js';
+// import LoginScreen from './screens/LoginScreen.js';
 import GetListTickets from './screens/GetListTickets.js';
 
 export default class App extends React.Component {

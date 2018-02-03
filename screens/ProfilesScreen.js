@@ -5,8 +5,10 @@ import {
   Text,
   View,
   ScrollView,
-  Dimensions
+  Dimensions,
+  SectionList
 } from "react-native";
+import { Constants } from "expo";
 import axiosInstance from "../api/api";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -23,51 +25,66 @@ export default class ProfilesScreen extends React.Component {
       );
   }
   render() {
-    return <View style={{ flex: 1 }}>
-      {this.state.fontLoaded ? <View style={{ flex: 1, backgroundColor: "rgba(47,44,60,1)" }}>
-          <View style={styles.statusBar} />
-          <View style={styles.navBar}>
-            <Text style={styles.nameHeader}>
-              {this.state.profiles.username}
-            </Text>
-          </View>
-          <ScrollView style={{ flex: 1 }}>
-            <View style={{ flex: 1, marginTop: 30 }}>
-              <Text style={{ flex: 1, fontSize: 15, color: "rgba(216, 121, 112, 1)", marginLeft: 40 }}>
-                General
+    return <View style={{ flex: 1, backgroundColor: "white" }}>
+        {this.state.fontLoaded ? <View style={{ flex: 1 }}>
+            {/* <View style={styles.statusBar} /> */}
+            <View style={styles.navBar}>
+              <Text style={styles.nameHeader}>
+                {this.state.profiles.username.toUpperCase()}
               </Text>
-              <View style={{ flex: 1, flexDirection: "row", marginTop: 20, marginHorizontal: 30 }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View>
-                    <Text style={styles.infoTypeLabel}>Email</Text>
-                    <Text style={styles.infoTypeLabel}>First Name</Text>
-                    <Text style={styles.infoTypeLabel}>Last Name</Text>
-                    <Text style={styles.infoTypeLabel}>Time Zone</Text>
-                    <Text style={styles.infoTypeLabel}>Text Format:	</Text>
-                  </View>
-                  <View style={{marginLeft: 10 }}>
-                    <Text style={styles.infoAnswerLabel}>{this.state.profiles.email}</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.profiles.first_name}</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.profiles.last_name}</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.profiles.time_zone}</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.profiles.text_markup}</Text>
-                  </View>
+            </View>
+            <ScrollView style={{ flex: 1 }}>
+              <View style={{ flex: 1, marginTop: 10 }}>
+                <View style={styles.sectionHeaderContainer}>
+                  <Text style={styles.sectionHeaderText}>Email</Text>
+                </View>
+                <View style={styles.sectionContentContainer}>
+                  <Text>{this.state.profiles.email}</Text>
+                </View>
+                <View style={styles.sectionHeaderContainer}>
+                  <Text style={styles.sectionHeaderText}>First Name</Text>
+                </View>
+                <View style={styles.sectionContentContainer}>
+                  <Text>{this.state.profiles.first_name}</Text>
+                </View>
+                <View style={styles.sectionHeaderContainer}>
+                  <Text style={styles.sectionHeaderText}>Last Name</Text>
+                </View>
+                <View style={styles.sectionContentContainer}>
+                  <Text>{this.state.profiles.last_name}</Text>
+                </View>
+                <View style={styles.sectionHeaderContainer}>
+                  <Text style={styles.sectionHeaderText}>Time Zone</Text>
+                </View>
+                <View style={styles.sectionContentContainer}>
+                  <Text>{this.state.profiles.time_zone}</Text>
+                </View>
+                <View style={styles.sectionHeaderContainer}>
+                  <Text style={styles.sectionHeaderText}>Text Format</Text>
+                </View>
+                <View style={styles.sectionContentContainer}>
+                  <Text>{this.state.profiles.text_markup}</Text>
                 </View>
               </View>
+            </ScrollView>
+          </View> : <View style={{ flex: 1, backgroundColor: "white" }}>
+            <View style={styles.statusBar} />
+            <View style={styles.navBar}>
+              <Text style={styles.nameHeader}>Loading...</Text>
             </View>
-          </ScrollView>
-        </View> : 
-        <View style={{ flex: 1, backgroundColor: "rgba(47,44,60,1)" }}>
-          <View style={styles.statusBar} />
-          <View style={styles.navBar}>
-            <Text style={styles.nameHeader}>
-              Loading...
-            </Text>
-          </View>
-        </View>
-        }
-    </View>;
+          </View>}
+      </View>;
+    // return <ExpoConfigView />;
+    // return (<View style={styles.sectionHeaderContainer}>
+    //   <Text style={styles.sectionHeaderText}>
+    //     qw
+    //   </Text>
+    // </View>);
+    // return <View>
+        
+    //   </View>;
   }
+  
 }
 const styles = StyleSheet.create({
   statusBar: {
@@ -80,19 +97,29 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   nameHeader: {
-    color: "white",
+    color: "#DD3645",
     fontSize: 22,
-    textAlign: "center"
+    textAlign: "center",
+    fontWeight: "bold"
   },
-  infoTypeLabel: {
-    fontSize: 15,
-    textAlign: "right",
-    color: "rgba(126,123,138,1)",
-    paddingBottom: 10
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
   },
-  infoAnswerLabel: {
-    fontSize: 15,
-    color: "white",
-    paddingBottom: 10
+  sectionHeaderContainer: {
+    backgroundColor: "#fbfbfb",
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#ededed"
+  },
+  sectionHeaderText: {
+    fontSize: 14,
+    fontWeight: "bold"
+  },
+  sectionContentContainer: {
+    paddingTop: 8,
+    paddingBottom: 12,
+    paddingHorizontal: 15
   }
 });
