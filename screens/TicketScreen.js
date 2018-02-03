@@ -1,12 +1,15 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default class TicketScreen extends React.Component {
   static navigationOptions = {
     title: 'Ticket',
   };
-
+  
   render() {
+    const { params } = this.props.navigation.state;
+    const ticketID = params ? params.ticketID : null;
+
     return (
 
       // <ScrollView style={styles.container}>
@@ -15,7 +18,7 @@ export default class TicketScreen extends React.Component {
       //   <ProjectList />
       // </ScrollView>
       <View style={styles.container}>
-      
+        <Text>{ticketID}</Text>
       </View>
     );
   }

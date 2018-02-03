@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { AppLoading, Asset, Font } from "expo";
 import RootNavigation from "../navigation/RootNavigation";
-// import axiosInstance from "../api/api";
 
 export default class SecondScreen extends React.Component {
     state = {

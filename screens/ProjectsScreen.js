@@ -3,8 +3,11 @@ import { ScrollView, StyleSheet, View, Button, FlatList, Text } from 'react-nati
 import ProjectList from '../components/ProjectList';
 import { Spinner } from '../components/common/Spinner';
 import Touchable from 'react-native-platform-touchable';
-import axiosInstance from '../api/api';
 import { Ionicons } from '@expo/vector-icons';
+import {AsyncStorage} from "react-native";
+import base64 from 'base-64';
+import axios from 'axios';
+
 
 export default class ProjectsScreen extends React.Component {
   static navigationOptions = {
@@ -19,8 +22,21 @@ export default class ProjectsScreen extends React.Component {
     this.fetchData();
   }
   fetchData(){
-    axiosInstance.get('/projects.json')
-    .then(response => this.setState({projects: response.data, loading: false, refreshing: false}))
+    // axiosInstance.get('/projects.json')
+    // .then(response => this.setState({projects: response.data, loading: false, refreshing: false}))
+    AsyncStorage.getItem("access_token").then(value => {
+      console.log(value);
+
+      encodeData = base64.encode(value);
+      var axiosInstance = axios.create({
+      baseURL: 'https://vinova.unfuddle.com/api/v1',
+      headers: {'Authorization':  `Basic ${encodeData}`}
+      });
+       axiosInstance.get('/projects.json')
+        .then(response => this.setState({projects: response.data, loading: false, refreshing: false}))
+    }).then(res => {
+      console.log(res);
+    });
   }
   _keyExtractor = (item, index) => item.id;
   _renderItem = ({item}) => (

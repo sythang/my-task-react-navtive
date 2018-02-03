@@ -14,9 +14,9 @@ import { WebBrowser } from 'expo';
 import { TicketList } from '../components/TicketList';
 import { Spinner } from '../components/common/Spinner';
 import Touchable from 'react-native-platform-touchable';
-
-import axiosInstance from '../api/api';
-
+import {AsyncStorage} from "react-native";
+import base64 from 'base-64';
+import axios from 'axios';
 
 export default class HomeScreen extends React.Component {
   // static navigationOptions = {
@@ -28,9 +28,31 @@ export default class HomeScreen extends React.Component {
   };
 
   componentWillMount(){
+    
+    console.log("=====")
     this.setState({loading: true})
-    axiosInstance.get('/ticket_reports/4/generate.json')
-      .then(response => this.setState({ ticket: response.data, loading: false}));
+    AsyncStorage.getItem("access_token").then(value => {
+      console.log(value);
+
+      encodeData = base64.encode(value);
+      var axiosInstance = axios.create({
+      baseURL: 'https://vinova.unfuddle.com/api/v1',
+      headers: {'Authorization':  `Basic ${encodeData}`}
+      });
+      axiosInstance.get('/ticket_reports/4/generate.json')
+        .then(response => this.setState({ ticket: response.data, loading: false}));
+    }).then(res => {
+      console.log(res);
+    });
+    
+    // console.log(access_token);
+    // encodeData = base64.encode(access_token);
+    // var axiosInstance = axios.create({
+      // baseURL: 'https://vinova.unfuddle.com/api/v1',
+      // headers: {'Authorization':  `Basic ${encodeData}`}
+    // });
+    // axiosInstance.get('/ticket_reports/4/generate.json')
+      // .then(response => this.setState({ ticket: response.data, loading: false}));
   }
   _onPress = () => {
     this.props.navigation.navigate('Ticket')
@@ -50,7 +72,7 @@ export default class HomeScreen extends React.Component {
           key={ticket.id}
           style={styles.option}
           background={Touchable.Ripple('#ccc', false)}
-          onPress={() => this.props.navigation.navigate('Ticket')}>
+          onPress={() => this.props.navigation.navigate('Ticket',{ticketID: ticket.id})}>
             <View style={styles.container}>
               <View style={styles.section}>
                 <View style={styles.thumnailContainerStyle}>

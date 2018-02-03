@@ -12,7 +12,7 @@ import NavigationExperimental from "react-native-deprecated-custom-components";
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import axiosInstance from '../api/api'; 
+import axiosInstance from '../api/api';
 import base64 from 'base-64';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;

@@ -18,7 +18,6 @@ AsyncStorage.getItem("access_token").then(value => {
     console.log("res");
     console.log(res);
   });
-
 // var username = "julian";
 // var password = "sythang";
 // encodeData = base64.encode(`${username}:${password}`);

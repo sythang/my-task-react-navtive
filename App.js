@@ -26,7 +26,8 @@ const RootStack = StackNavigator(
     }
   },
   {
-    initialRouteName: "LoginScreen"
+    headerMode: 'none',
+    initialRouteName: "App"
   }
 );
 

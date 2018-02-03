@@ -9,7 +9,10 @@ import {
   SectionList
 } from "react-native";
 import { Constants } from "expo";
-import axiosInstance from "../api/api";
+import {AsyncStorage} from "react-native";
+import base64 from 'base-64';
+import axios from 'axios';
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default class ProfilesScreen extends React.Component {
@@ -18,11 +21,23 @@ export default class ProfilesScreen extends React.Component {
   };
   state = { fontLoaded: false };
   componentWillMount() {
-    axiosInstance
-      .get("/people/current.json")
-      .then(response =>
-        this.setState({ profiles: response.data, fontLoaded: true })
-      );
+    AsyncStorage.getItem("access_token").then(value => {
+      console.log(value);
+
+      encodeData = base64.encode(value);
+      var axiosInstance = axios.create({
+      baseURL: 'https://vinova.unfuddle.com/api/v1',
+      headers: {'Authorization':  `Basic ${encodeData}`}
+      });
+      axiosInstance
+        .get("/people/current.json")
+        .then(response =>
+          this.setState({ profiles: response.data, fontLoaded: true })
+        );
+    }).then(res => {
+      console.log(res);
+    });
+    
   }
   render() {
     return <View style={{ flex: 1, backgroundColor: "white" }}>
