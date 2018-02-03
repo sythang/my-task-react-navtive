@@ -18,20 +18,28 @@ export class TicketList extends React.Component {
   renderTicketGroup(){
    return this.state.ticket.groups.map(group => <TicketGroup key={group.title} group={group} />);
   }
-
+  onPress =() => {
+    this.props.navigation.navigate("Ticket")
+  }
   render() {
     console.log(this.props);
     if(this.state.loading){
       return <Spinner size="small" />
     }
     return (
+      <View>
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Ticket')}
+        />
       <ScrollView>
         {this.renderTicketGroup()}
-        {/* <Button
+        <Button
           title="Go to Details"
-          onPress={() => navigation.navigate('Ticket')}
-        /> */}
+          onPress={this.onPress()}
+        />
       </ScrollView>
+      </View>
     );
   }
 }

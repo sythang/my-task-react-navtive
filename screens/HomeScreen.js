@@ -7,37 +7,79 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  PixelRatio
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { TicketList } from '../components/TicketList';
+import { Spinner } from '../components/common/Spinner';
+import Touchable from 'react-native-platform-touchable';
+
+import axiosInstance from '../api/api';
+
 
 export default class HomeScreen extends React.Component {
   // static navigationOptions = {
   //   title: 'Activity',
   // };
- 
+  state = {
+    ticket: {},
+    loading: false,
+  };
+
+  componentWillMount(){
+    this.setState({loading: true})
+    axiosInstance.get('/ticket_reports/4/generate.json')
+      .then(response => this.setState({ ticket: response.data, loading: false}));
+  }
+  _onPress = () => {
+    this.props.navigation.navigate('Ticket')
+  }
+  renderTicketGroup = () =>{
+    return this.state.ticket.groups.map(group => 
+      <View key={group.title}>
+        <View style={styles.base}>
+          <View style={[styles.content, styles.content__lightning]}>
+            <Text style={[styles.text]}>
+              <Text style={styles.title}>{group.title}</Text>
+            </Text>
+          </View>
+        </View>
+        { group.tickets.map((ticket) => 
+          <Touchable
+          key={ticket.id}
+          style={styles.option}
+          background={Touchable.Ripple('#ccc', false)}
+          onPress={() => this.props.navigation.navigate('Ticket')}>
+            <View style={styles.container}>
+              <View style={styles.section}>
+                <View style={styles.thumnailContainerStyle}>
+                  <Image
+                    style={styles.thumnailStyle}
+                    source={require('../assets/images/robot-dev.png')
+                    }/>
+                </View>
+                <View style={styles.headerContentStyle}>
+                  <Text>{ticket.summary}</Text>
+                  <Text>Status: <Text style={[styles.status, styles['status__'+ticket.status]]}>{ticket.status}</Text></Text>
+                </View>
+              </View>
+            </View>
+          </Touchable>
+        )}
+        
+      </View>
+    );
+   }
   render() {
+    if(this.state.loading){
+      return <Spinner size="small" />
+    }
     return (
       <View style={styles.container}>
-        
-        {/* <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-        </ScrollView> */}
-        <TicketList />
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Ticket')}
-        />
+        <ScrollView>
+          {this.renderTicketGroup()}
+      </ScrollView>
       </View>
     );
   }
@@ -139,5 +181,164 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+  base: {
+    alignItems: 'stretch',
+    backgroundColor: '#fbfbfb',
+    borderBottomColor: '#CCC',
+    borderBottomWidth: 1 / PixelRatio.get(),
+    flexDirection: 'row',
+  },
+  content: {
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    flexGrow: 1,
+    height: 44,
+    justifyContent: 'center',
+  },
+  content__lightning: {
+    height: 32,
+  },
+  text: {
+    backgroundColor: 'transparent',
+    color: '#383838',
+    fontSize: 14,
+    fontWeight: '300',
+  },
+  text__past: {
+    color: '#999',
+  },
+  title: {
+    fontWeight: '500',
+  },
+  canvasContainer:{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
+  option: {
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#EDEDED',
+  },
+  container: {
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    marginVertical: 5
+  },
+  section:{
+    padding: 15,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    borderColor: '#ddd',
+    position: 'relative'
+  },
+  thumnailStyle:{
+    height: 50,
+    width: 50,
+  },
+  thumnailContainerStyle:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  headerContentStyle:{
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  status: {
+    color: '#fff',
+    backgroundColor: '#00bbbb',
+    padding: 2
+  },
+  status__Resolved:{
+    backgroundColor: '#ee9900',    
+  },
+  status__Accepted:{
+    backgroundColor: '#bbbb00',    
+  },
+  text: {
+    marginLeft: 12,
+    fontSize: 16,
+  },
+  photo: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+  },
+  touchable: {
+    backgroundColor: 'white',
+  },
+  base: {
+    alignItems: 'stretch',
+    backgroundColor: 'transparent',
+    borderBottomColor: '#CCC',
+    borderBottomWidth: 1 / PixelRatio.get(),
+    flexDirection: 'row',
+  },
+  statusbarIcon: {
+    backgroundColor: 'transparent',
+    height: 34,
+    left: 0,
+    position: 'absolute',
+    top: 10,
+    width: 34,
+  },
+
+  // content
+  content: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    flexGrow: 1,
+    flexShrink: 1,
+    padding: 17,
+  },
+  // content__past: {
+  //   opacity: 0.5,
+  // },
+  text: {
+    flexGrow: 1,
+    flexShrink: 1,
+    paddingRight: 12,
+  },
+  subtitle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 14,
+  },
+  subtitleText: {
+    color: '#666',
+    flexShrink: 1,
+    fontSize: 14,
+    fontWeight: '300',
+  },
+  title: {
+    color: '#383838',
+    fontSize: 17,
+  },
+
+  // right (avatar and chevron)
+  right: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexShrink: 0,
+  },
+
+  // chevron
+  chevron: {
+    marginLeft: 17,
   },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ListView, RefreshControl, FlatList } from 'react-native';
+import { StyleSheet, Image, Text, View, ListView, RefreshControl, FlatList, Button } from 'react-native';
 import { WebBrowser } from 'expo';
 import Touchable from 'react-native-platform-touchable';
 import { Spinner } from './common/Spinner';
@@ -36,13 +36,15 @@ export default class ProjectList extends React.Component {
       return <Spinner size='small' />
     }
     return (
-      <FlatList
-        onRefresh={() => this._onRefresh()}
-        refreshing={this.state.refreshing}
-        data={this.state.projects}
-        renderItem={this._renderItem}
-        keyExtractor={this._keyExtractor}>
-      </FlatList>
+      <View>
+        <FlatList
+          onRefresh={() => this._onRefresh()}
+          refreshing={this.state.refreshing}
+          data={this.state.projects}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}>
+        </FlatList>
+      </View>
     );
   }
 

@@ -6,7 +6,7 @@ export default class TicketGroup extends Component {
   
   renderTickets(){
     var group = this.props.group;
-    return group.tickets.map((ticket) => <TicketDetail key={ticket.id} ticket={ticket} />)
+    return group.tickets.map((ticket) => <TicketDetail navigation={this.props.navigation} key={ticket.id} ticket={ticket} />)
   }
   render(){
    

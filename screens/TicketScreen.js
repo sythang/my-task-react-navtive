@@ -14,7 +14,9 @@ export default class TicketScreen extends React.Component {
       //      * content, we just wanted to provide you with some helpful links */}
       //   <ProjectList />
       // </ScrollView>
-      <Text>Ticket</Text>
+      <View style={styles.container}>
+      
+      </View>
     );
   }
 }
