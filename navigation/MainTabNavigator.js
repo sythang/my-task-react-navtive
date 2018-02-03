@@ -6,19 +6,19 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ProjectsScreen from '../screens/ProjectsScreen';
+import ProfilesScreen from '../screens/ProfilesScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Projects: {
+      screen: ProjectsScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    Profiles: {
+      screen: ProfilesScreen,
     },
   },
   {
@@ -30,15 +30,17 @@ export default TabNavigator(
           case 'Home':
             iconName =
               Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+                ? `ios-home${focused ? '' : '-outline'}`
+                : 'md-home';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Projects':
+            iconName = Platform.OS === 'ios' 
+              ? `ios-git-merge${focused ? '' : '-outline'}` 
+              : 'md-link';
             break;
-          case 'Settings':
+          case 'Profiles':
             iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+              Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-options';
         }
         return (
           <Ionicons
