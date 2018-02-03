@@ -7,18 +7,20 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { TicketList } from '../components/TicketList';
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Activity',
-  };
-
+  // static navigationOptions = {
+  //   title: 'Activity',
+  // };
+ 
   render() {
     return (
       <View style={styles.container}>
+        
         {/* <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
@@ -32,6 +34,10 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView> */}
         <TicketList />
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Ticket')}
+        />
       </View>
     );
   }

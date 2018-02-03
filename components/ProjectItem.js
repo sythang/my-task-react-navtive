@@ -8,7 +8,6 @@ export default class ProjectItem extends Component {
     console.log("On Press");
   } 
   render(){
-    console.log(this.props)
     return(
       <Touchable
         key={this.props.project.id}

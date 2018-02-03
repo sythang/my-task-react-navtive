@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Button } from 'react-native';
 import { Spinner } from './common/Spinner';
 import axiosInstance from '../api/api';
 
@@ -20,14 +20,17 @@ export class TicketList extends React.Component {
   }
 
   render() {
-    console.log(this.state.ticket.groups);
+    console.log(this.props);
     if(this.state.loading){
       return <Spinner size="small" />
     }
     return (
       <ScrollView>
         {this.renderTicketGroup()}
-
+        {/* <Button
+          title="Go to Details"
+          onPress={() => navigation.navigate('Ticket')}
+        /> */}
       </ScrollView>
     );
   }

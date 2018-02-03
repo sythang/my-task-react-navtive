@@ -6,13 +6,14 @@ import { View, Text, StyleSheet,
   Image, } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import Touchable from 'react-native-platform-touchable';
+import { StackNavigator } from 'react-navigation';
 
 export default class TicketDetail extends Component{
   
-
+  _onPress(){
+    console.log("Press");
+  }
   render(){
-    console.log(this.props)
-    
     const touchableProps = {
       activeOpacity: 1,
       style: styles.touchable,
@@ -20,13 +21,6 @@ export default class TicketDetail extends Component{
     };
     let ticket = this.props.ticket;
     return(
-    //     <View style={styles.container}>
-    //       <Ionicons name="ios-clipboard" size={22} color="#ccc" />
-    //     <Text style={styles.text}>
-    //       {this.props.ticket.summary}
-    //     </Text>
-    // </View>
-
     <Touchable
       key={this.props.ticket.id}
       style={styles.option}

@@ -32,7 +32,6 @@ export default class ProjectList extends React.Component {
     <ProjectItem project={item}></ProjectItem>
   )
   render() {
-    console.log(this.state)
     if(this.state.loading){
       return <Spinner size='small' />
     }

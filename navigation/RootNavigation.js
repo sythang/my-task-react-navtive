@@ -12,11 +12,7 @@ const RootStackNavigator = StackNavigator(
     },
   },
   {
-    navigationOptions: () => ({
-      headerTitleStyle: {
-        fontWeight: 'normal',
-      },
-    }),
+    headerMode: 'none'
   }
 );
 
