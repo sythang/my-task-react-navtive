@@ -10,6 +10,7 @@ var axiosInstance = axios.create({
 // AsyncStorage.getItem("access_token").then(value =>
 //   var value = value;
 // );
+console.log("api");
 AsyncStorage.getItem("access_token").then(value => {
     console.log("value");
     console.log(value);
@@ -18,8 +19,10 @@ AsyncStorage.getItem("access_token").then(value => {
     console.log(res);
   });
 
-var username = "julian";
-var password = "sythang";
-encodeData = base64.encode(`${username}:${password}`);
+// var username = "julian";
+// var password = "sythang";
+// encodeData = base64.encode(`${username}:${password}`);
+var value = AsyncStorage.getItem("access_token");
+encodeData = base64.encode(value);
 axiosInstance.defaults.headers.common['Authorization'] = `Basic ${encodeData}`;
 module.exports = axiosInstance;
