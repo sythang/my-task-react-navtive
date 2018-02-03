@@ -9,11 +9,11 @@ export class TicketList extends React.Component {
     ticket: {},
     loading: false,
   };
-  // componentWillMount(){
-  //   this.setState({loading: true})
-  //   axiosInstance.get('/ticket_reports/4/generate.json')
-  //     .then(response => this.setState({ ticket: response.data, loading: false}));
-  // }
+  componentWillMount(){
+    this.setState({loading: true})
+    axiosInstance.get('/ticket_reports/4/generate.json')
+      .then(response => this.setState({ ticket: response.data, loading: false}));
+  }
 
   renderTicketGroup(){
    return this.state.ticket.groups.map(group => <TicketGroup key={group.title} group={group} />);
@@ -26,7 +26,7 @@ export class TicketList extends React.Component {
     }
     return (
       <ScrollView>
-        {/* {this.renderTicketGroup()} */}
+        {this.renderTicketGroup()}
 
       </ScrollView>
     );

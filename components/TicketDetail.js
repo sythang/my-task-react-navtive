@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, 
   Animated,
   Easing,
-  PixelRatio, } from 'react-native'
+  PixelRatio,
+  Image, } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import Touchable from 'react-native-platform-touchable';
 
@@ -17,7 +18,7 @@ export default class TicketDetail extends Component{
       style: styles.touchable,
       underlayColor: '#F2F2F2',
     };
-
+    let ticket = this.props.ticket;
     return(
     //     <View style={styles.container}>
     //       <Ionicons name="ios-clipboard" size={22} color="#ccc" />
@@ -31,40 +32,75 @@ export default class TicketDetail extends Component{
       style={styles.option}
       background={Touchable.Ripple('#ccc', false)}
       onPress={this._onPress}>
-        <View style={styles.content}>
-            <View style={[styles.text]}>
-              <Text>{this.props.ticket.summary}</Text>
-              <Text style={styles.title}>
-                TItle
-              </Text>
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <View style={styles.thumnailContainerStyle}>
+              <Image
+                style={styles.thumnailStyle}
+                source={require('../assets/images/robot-dev.png')
+                }/>
             </View>
-
-            <View style={styles.right}>
-              <Ionicons
-                color='#999'
-                name="ios-arrow-forward"
-                size={20}
-                style={styles.chevron}
-              />
+            <View style={styles.headerContentStyle}>
+              <Text>{ticket.summary}</Text>
+              <Text>Status: <Text style={[styles.status, styles['status__'+ticket.status]]}>{ticket.status}</Text></Text>
             </View>
           </View>
+        </View>
       </Touchable>
     )
   }
 }
 const styles = StyleSheet.create({
   option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#EDEDED',
   },
   container: {
-    flex: 1,
-    padding: 12,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    marginVertical: 5
+  },
+  section:{
+    padding: 15,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
+    borderColor: '#ddd',
+    position: 'relative'
+  },
+  thumnailStyle:{
+    height: 50,
+    width: 50,
+  },
+  thumnailContainerStyle:{
+    justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  headerContentStyle:{
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  status: {
+    color: '#fff',
+    backgroundColor: '#00bbbb',
+    padding: 2
+  },
+  status__Resolved:{
+    backgroundColor: '#ee9900',    
+  },
+  status__Accepted:{
+    backgroundColor: '#bbbb00',    
   },
   text: {
     marginLeft: 12,
