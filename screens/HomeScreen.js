@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { TaskList } from '../components/TaskList';
+import { TicketList } from '../components/TicketList';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
             />
           </View>
         </ScrollView> */}
-        <TaskList />
+        <TicketList />
       </View>
     );
   }
