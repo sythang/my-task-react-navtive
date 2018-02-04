@@ -1,5 +1,13 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Button, FlatList, Text } from 'react-native';
+import {
+  AppRegistry,
+  ScrollView,
+  StyleSheet,
+  View,
+  Button,
+  FlatList,
+  Text
+} from "react-native";
 import ProjectList from '../components/ProjectList';
 import { Spinner } from '../components/common/Spinner';
 import Touchable from 'react-native-platform-touchable';
@@ -130,3 +138,4 @@ const styles = StyleSheet.create({
     marginTop: 1,
   }
 });
+AppRegistry.registerComponent("SimpleApp", () => SimpleApp);

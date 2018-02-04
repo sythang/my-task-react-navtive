@@ -32,9 +32,29 @@ class LoginScreen extends Component {
     super();
     this.state = {
       error: "",
-      showProgress: false,
-    }
+      showProgress: false
+    };
   }
+  componentWillMount() {
+    this.setState({ loading: true });
+    this.fetchData();
+  }
+  fetchData() {
+    // axiosInstance.get('/projects.json')
+    // .then(response => this.setState({projects: response.data, loading: false, refreshing: false}))
+    AsyncStorage.getItem("access_token")
+      .then(value => {
+        console.log("123");
+        console.log(value);
+        if (value != null) {
+          this.props.navigation.navigate("App");
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
+  }
+
 
   storeToken(responseData) {
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, err => {
@@ -43,6 +63,17 @@ class LoginScreen extends Component {
         throw err;
       }
       console.log("success");
+    }).catch(err => {
+      console.log("error is: " + err);
+    });
+  }
+  storeLogin(responseData) {
+    AsyncStorage.setItem("isLogin", responseData, err => {
+      if (err) {
+        console.log("an error");
+        throw err;
+      }
+      console.log("success Login");
     }).catch(err => {
       console.log("error is: " + err);
     });
@@ -91,7 +122,8 @@ class LoginScreen extends Component {
         console.log("username");
         console.log(username + ":" + password);
         //On success we will store the access_token in the AsyncStorage
-        this.storeToken(username+':'+password);
+        this.storeToken(username + ":" + password);
+        this.storeLogin("true");
         this.redirect("home");
       } else {
         //Handle error
@@ -214,9 +246,7 @@ class LoginScreen extends Component {
             ref={input => (this.password2Input = input)}
             blurOnSubmit={false}
           />
-          <Text style={styles.error}>
-            {this.state.error}
-          </Text>
+          <Text style={styles.error}>{this.state.error}</Text>
           <Button
             title="Log in"
             loading={false}

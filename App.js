@@ -27,7 +27,7 @@ const RootStack = StackNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: "App"
+    initialRouteName: "LoginScreen"
   }
 );
 
@@ -35,12 +35,12 @@ const RootStack = StackNavigator(
 
 export default class App extends React.Component {
   state = {
+    is_login: "false",
     isLoadingComplete: false,
   };
   static navigationOptions = {
     header: null
   }
-
   render() {
     return (
       <RootStack />
