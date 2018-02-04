@@ -58,6 +58,7 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Ticket')
   }
   renderTicketGroup = () =>{
+    console.log(this.state.ticket);
     return this.state.ticket.groups.map(group => 
       <View key={group.title}>
         <View style={styles.base}>
@@ -72,7 +73,7 @@ export default class HomeScreen extends React.Component {
           key={ticket.id}
           style={styles.option}
           background={Touchable.Ripple('#ccc', false)}
-          onPress={() => this.props.navigation.navigate('Ticket',{ticketID: ticket.id})}>
+          onPress={() => this.props.navigation.navigate('Ticket',{ticketID: ticket.id, projectID: ticket.project_id})}>
             <View style={styles.container}>
               <View style={styles.section}>
                 <View style={styles.thumnailContainerStyle}>
