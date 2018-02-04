@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, PixelRatio } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, PixelRatio, Image } from 'react-native';
 import {AsyncStorage} from "react-native";
 import base64 from 'base-64';
 import axios from 'axios';
@@ -39,30 +39,42 @@ export default class TicketScreen extends React.Component {
     let ticket = this.state.ticket;
     console.log(ticket);
     let milestone = ticket.milestone[0];
-    return (
-      <View style={styles.container}>
+    return <View style={styles.container}>
+        <View style={styles.thumnailContainerStyle}>
+          <Image style={styles.thumnailStyle} source={require("../assets/images/robot-dev.png")} />
+        </View>
         <View style={styles.headerContainer}>
           <Text style={styles.ticketSummary}>{ticket.summary}</Text>
-          <Text style={styles.ticketSubtitle}>{milestone.title}</Text>
+          <Text style={styles.ticketSubtitle}>
+            Milestone: {milestone.title}
+          </Text>
         </View>
         <View style={styles.description}>
-          <Text>{ticket.description}</Text>
+          <Text>
+            Status: <Text
+              style={[styles.status, styles["status__" + ticket.status]]}
+            >
+              {ticket.status}
+            </Text>
+          </Text>
+          <Text>Description: {ticket.description}</Text>
+          <Text>Estimate: {ticket.hours_estimate_current}</Text>
         </View>
-      </View>
-    );
+      </View>;
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     paddingTop: 15,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   headerContainer: {
-    borderBottomColor: '#CCC',
-    borderBottomWidth: 1 / PixelRatio.get(),
+    borderBottomColor: "#CCC",
+    borderBottomWidth: 1 / PixelRatio.get()
   },
   ticketSummary: {
     fontSize: 17,
@@ -71,7 +83,16 @@ const styles = StyleSheet.create({
   ticketSubtitle: {
     fontSize: 13
   },
-  description:{
-    
-  }
+  status: {
+    color: "#fff",
+    backgroundColor: "#00bbbb",
+    padding: 2
+  },
+  status__Resolved: {
+    backgroundColor: "#ee9900"
+  },
+  status__Accepted: {
+    backgroundColor: "#bbbb00"
+  },
+  description: {}
 });
