@@ -52,7 +52,7 @@ export default class ProjectsScreen extends React.Component {
       key={item.id}
       style={styles.option}
       background={Touchable.Ripple('#ccc', false)}
-      onPress= {() => this.props.navigation.navigate('ProjectDetail')}>
+      onPress= {() => this.props.navigation.navigate('ProjectDetail',{projectID: item.id})}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.optionIconContainer}>
           <Ionicons name="ios-clipboard" size={22} color="#ccc" />

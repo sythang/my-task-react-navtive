@@ -10,6 +10,7 @@ import ProjectsScreen from '../screens/ProjectsScreen';
 import ProfilesScreen from '../screens/ProfilesScreen';
 import TicketScreen from '../screens/TicketScreen';
 import ProjectDetailScreen from '../screens/ProjectDetail';
+// import AllTicket from "../screens/AllTicket";
 
 const HomeStack = StackNavigator({
   Home: { screen: HomeScreen, navigationOptions: {title: "Activity"} },
@@ -20,9 +21,10 @@ const HomeStack = StackNavigator({
   })
 
 const ProjectStack = StackNavigator({
-  Projects: {screen: ProjectsScreen},
-  ProjectDetail: { screen: ProjectDetailScreen}
-})
+  Projects: { screen: ProjectsScreen },
+  ProjectDetail: { screen: ProjectDetailScreen },
+  // AllTicket: { screen: AllTicket }
+});
 export default TabNavigator(
   {
     Home: {

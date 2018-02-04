@@ -45,26 +45,37 @@ export default class TicketScreen extends React.Component {
         </View>
         <View style={styles.headerContainer}>
           <Text style={styles.ticketSummary}>{ticket.summary}</Text>
-          <Text style={styles.ticketSubtitle}>
-            Milestone: {milestone.title}
-          </Text>
+          <View style={styles.marginTopView}>
+            <Text style={styles.ticketSubtitle}>
+              Milestone: {milestone.title}
+            </Text>
+          </View>
         </View>
         <View style={styles.description}>
-          <Text>
-            Status: <Text
-              style={[styles.status, styles["status__" + ticket.status]]}
-            >
-              {ticket.status}
+          <View style={styles.marginTopView}>
+            <Text>
+              Status: <Text
+                style={[styles.status, styles["status__" + ticket.status]]}
+              >
+                {ticket.status}
+              </Text>
             </Text>
-          </Text>
-          <Text>Description: {ticket.description}</Text>
-          <Text>Estimate: {ticket.hours_estimate_current}</Text>
+          </View>
+          <View style={styles.marginTopView}>
+            <Text>Description: {ticket.description}</Text>
+          </View>
+          <View style={styles.marginTopView}>
+            <Text>Estimate: {ticket.hours_estimate_current}</Text>
+          </View>
         </View>
       </View>;
   }
 }
 
 const styles = StyleSheet.create({
+  marginTopView: {
+    marginTop: 10
+  },
   container: {
     flex: 1,
     alignItems: "center",
